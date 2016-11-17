@@ -17,6 +17,8 @@ class Callback extends Controller {
 	}
 
 	function process() {
+		//echo '<h1>Please wait... redirecting to NobiPay</h1>';
+		//die();
 		// get gateway
 		$gateway = $this->uri->segment(2);
 
@@ -90,7 +92,7 @@ class Callback extends Controller {
 			$this->load->model('charge_model');
 			$charge = $this->charge_model->GetCharge($client_id, $charge_id);
 		}
-
+		
 		// get gateway
 		$this->load->model('gateway_model');
 		$gateway = $this->gateway_model->GetGatewayDetails($client_id, $charge['gateway_id']);
@@ -106,6 +108,8 @@ class Callback extends Controller {
 		if (!method_exists($this->$gateway_name,$function)) {
 			die('Method doesn\'t exist in gateway library.');
 		}
+		
+		
 
 		// e.g., $this->Paypal_standard->Callback_confirm(1000, 345, array(charge), array(params));
 		$this->$gateway_name->$function($client_id, $gateway, $charge, $params);

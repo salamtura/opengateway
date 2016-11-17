@@ -257,6 +257,27 @@ class CI_Encrypt {
 		$init_vect = mcrypt_create_iv($init_size, MCRYPT_RAND);
 		return $this->_add_cipher_noise($init_vect.mcrypt_encrypt($this->_get_cipher(), $key, $data, $this->_get_mode(), $init_vect), $key);
 	}
+	
+	function encryptText_3des($plainText, $key) {
+		$key = hash("md5", $key, TRUE); 
+	 
+		 for ($x=0;$x<8;$x++) {
+		  $key = $key.substr($key, $x, 1);
+		 }
+	 
+		 $padded = $this->pkcs5_pad($plainText, mcrypt_get_block_size(MCRYPT_3DES, MCRYPT_MODE_ECB));
+		 $init_size = mcrypt_get_iv_size($this->_get_cipher(), $this->_get_mode());
+		 $init_vect = mcrypt_create_iv($init_size, MCRYPT_RAND);
+		 $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_3DES, $key, $padded, MCRYPT_MODE_ECB,$init_vect));
+		 
+		return $encrypted;
+	}
+	
+	function pkcs5_pad ($text, $blocksize) 
+	{ 
+	    $pad = $blocksize - (strlen($text) % $blocksize); 
+	    return $text . str_repeat(chr($pad), $pad); 
+	}
 
 	// --------------------------------------------------------------------
 

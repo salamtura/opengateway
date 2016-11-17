@@ -102,6 +102,7 @@ class Field_validation
 		$patterns['visa'] = "/^([4]{1})([0-9]{12,15})$/";
 		$patterns['mc'] = "/^([50|51|52|53|54|55]{2})([0-9]{14})$/";
 		$patterns['dc'] = "/^([30|36|38]{2})([0-9]{12})$/";
+		$patterns['verve'] = "/^([506]{3})([0-9]{16})$/";
 		
 		foreach($patterns as $key => $value) {
 			if(preg_match($value, $card_number)) {

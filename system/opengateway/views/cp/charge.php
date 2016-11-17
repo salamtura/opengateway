@@ -120,5 +120,22 @@
 	<? } ?>
 	</tbody>
 	<? } ?>
+	<? if (isset($orderdetails) and !empty($orderdetails)) { ?>
+	<thead>
+		<tr>
+			<td colspan="2">Order Data</td>
+		</tr>
+	</thead>
+	<tbody>
+	<? foreach ($orderdetails as $name => $value) { ?>
+		<? if (!empty($value) ) { ?>
+		<tr>
+			<td><?=$name;?></td>
+			<td><?=$value;?></td>
+		</tr>
+		<? } ?>
+	<? } ?>
+	</tbody>
+	<? } ?>
 </table>
 <?=$this->load->view(branded_view('cp/footer'));?>

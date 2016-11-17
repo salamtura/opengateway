@@ -522,6 +522,25 @@ class Charge_model extends Model
 
 		return TRUE;
 	}
+	
+	
+	/**
+	* Update the credit card last four
+	*
+	* @param int $order_id The Order ID
+	* @param int $card_last_four The card last for numbers.  Default to 0.
+	*
+	* @return bool TRUE upon success.
+	*/
+	
+	function SetCardLastFour($order_id, $card_last_four = 1111)
+	{
+		$update_data['card_last_four'] = $card_last_four;
+		$this->db->where('order_id', $order_id);
+		$this->db->update('orders', $update_data);
+
+		return TRUE;
+	}
 
 	/**
 	* Get order authorization details

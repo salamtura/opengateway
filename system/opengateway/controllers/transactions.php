@@ -480,8 +480,19 @@ class Transactions extends Controller {
 		$details = $this->charge_model->GetChargeGatewayInfo($id);
 
 		$data['details'] = $details;
-
+		
+		//modification - 24-12-14 - abdul added this to display charge order details
+		$this->load->model('charge_data_model');
+		
+		$orderdetails = $this->charge_data_model->Get($id);
+		
+		$data['orderdetails'] = $orderdetails;
+		// end modification
+		
 		$this->load->view(branded_view('cp/charge'), $data);
+		
+		
+		
 
 		return TRUE;
 	}
